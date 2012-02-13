@@ -33,7 +33,7 @@ Battery::~Battery()
 {
 }
 
-bool Battery::ReadInfo()
+bool Battery::readInfo()
 {
 	FILE* fpInfo;
 	FILE* fpState;
@@ -60,55 +60,66 @@ bool Battery::ReadInfo()
 
 	match = strstr(fileInfoBuffer, "model number");
 	sscanf(match, "model number: %s", lineBuffer);
-	ModelNumber = lineBuffer;
+	modelNumber = lineBuffer;
 
 	match = strstr(fileInfoBuffer, "serial number");
 	sscanf(match, "serial number: %s", lineBuffer);
-	SerialNumber = lineBuffer;
+	serialNumber = lineBuffer;
 
 	match = strstr(fileStateBuffer, "remaining capacity");
 	sscanf(match, "remaining capacity: %s", lineBuffer);
-	RemainingCapacity = lineBuffer;
+	remainingCapacity = lineBuffer;
 
 	match = strstr(fileInfoBuffer, "last full capacity");
 	sscanf(match, "last full capacity: %s", lineBuffer);
-	FullCapacity = lineBuffer;
+	fullCapacity = lineBuffer;
 
 	match = strstr(fileStateBuffer, "charging state");
 	sscanf(match, "charging state: %s", lineBuffer);
 	lineBuffer[0] = toupper(lineBuffer[0]);
-	ChargingState = lineBuffer;
+	chargingState = lineBuffer;
 
+	match = strstr(fileInfoBuffer, "battery type");
+	sscanf(match, "battery type: %s", lineBuffer);
+	batteryType = lineBuffer;
 
 	return true;
 }
 
-std::string Battery::GetModelNumber()
+std::string Battery::getBatteryType()
 {
-	return ModelNumber;
+	if (batteryType == "LION")
+		return "Lithium Ion";
+	else
+		return batteryType;	
 }
 
-std::string Battery::GetSerialNumber()
+std::string Battery::getModelNumber()
 {
-	return SerialNumber;
+	return modelNumber;
 }
 
-std::string Battery::GetChargingState()
+std::string Battery::getSerialNumber()
 {
-	return ChargingState;
+	return serialNumber;
 }
 
-std::string Battery::GetFullCapacity()
+std::string Battery::getChargingState()
 {
-	return FullCapacity + " mWh";
+	return chargingState;
 }
 
-std::string Battery::GetRemainingCapacity()
+std::string Battery::getFullCapacity()
 {
-	float remain = atof(RemainingCapacity.c_str());
-	float full = atof(FullCapacity.c_str());
+	return fullCapacity + " mWh";
+}
+
+std::string Battery::getRemainingCapacity()
+{
+	float remain = atof(remainingCapacity.c_str());
+	float full = atof(fullCapacity.c_str());
 	int percent = 100.0 * remain / full;
 	char szBuffer[256];
-	sprintf(szBuffer, "%s mWh (%d %%)", RemainingCapacity.c_str(), percent);
+	sprintf(szBuffer, "%s mWh (%d %%)", remainingCapacity.c_str(), percent);
 	return szBuffer;
 }

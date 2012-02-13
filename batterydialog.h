@@ -34,9 +34,9 @@ class BatteryDialog : public Gtk::Window
 		Gtk::Dialog* pDialog;
 		Glib::RefPtr<Gtk::Builder> refBuilder;
 
-		void UpdateBatteryInfo();
-		void RefreshButton_clicked();
-		void QuitButton_clicked();
+		void updateBatteryInfo();
+		void refreshButton_clicked();
+		void quitButton_clicked();
 };
 
 #endif // _BATTERYDIALOG_H

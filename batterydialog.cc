@@ -51,13 +51,13 @@ BatteryDialog::BatteryDialog(Gtk::Main kit)
 	{  
 		Gtk::Button *pRefreshButton = 0;
 		refBuilder->get_widget("refresh_button", pRefreshButton);
-		pRefreshButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::RefreshButton_clicked));
+		pRefreshButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::refreshButton_clicked));
 	
 		Gtk::Button *pQuitButton = 0;
 		refBuilder->get_widget("quit_button", pQuitButton);
-		pQuitButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::QuitButton_clicked));
+		pQuitButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::quitButton_clicked));
 
-		UpdateBatteryInfo();
+		updateBatteryInfo();
 	
 		kit.run(*pDialog);
 	}
@@ -72,40 +72,44 @@ BatteryDialog::~BatteryDialog()
 {
 }
 
-void BatteryDialog::RefreshButton_clicked()
+void BatteryDialog::refreshButton_clicked()
 {
-	UpdateBatteryInfo();
+	updateBatteryInfo();
 }
 
-void BatteryDialog::QuitButton_clicked()
+void BatteryDialog::quitButton_clicked()
 {
 	pDialog->hide();	
 }
 
-void BatteryDialog::UpdateBatteryInfo()
+void BatteryDialog::updateBatteryInfo()
 {
 	Battery* pBattery = new Battery();
-	if (pBattery->ReadInfo()==true)
+	if (pBattery->readInfo()==true)
 	{
 		Gtk::Label *pModelNumberLabel = 0;
 		refBuilder->get_widget("modelnumber_label", pModelNumberLabel);
-		pModelNumberLabel->set_text(pBattery->GetModelNumber());
+		pModelNumberLabel->set_text(pBattery->getModelNumber());
 
 		Gtk::Label *pSerialNumberLabel = 0;
 		refBuilder->get_widget("serialnumber_label", pSerialNumberLabel);
-		pSerialNumberLabel->set_text(pBattery->GetSerialNumber());
+		pSerialNumberLabel->set_text(pBattery->getSerialNumber());
 
 		Gtk::Label *pChargingStateLabel = 0;
 		refBuilder->get_widget("chargingstate_label", pChargingStateLabel);
-		pChargingStateLabel->set_text(pBattery->GetChargingState());
+		pChargingStateLabel->set_text(pBattery->getChargingState());
+
+		Gtk::Label *pBatteryTypeLabel = 0;
+		refBuilder->get_widget("batterytype_label", pBatteryTypeLabel);
+		pBatteryTypeLabel->set_text(pBattery->getBatteryType());
 
 		Gtk::Label *pRemainingCapacityLabel = 0;
 		refBuilder->get_widget("remainingcapacity_label", pRemainingCapacityLabel);
-		pRemainingCapacityLabel->set_text(pBattery->GetRemainingCapacity());
+		pRemainingCapacityLabel->set_text(pBattery->getRemainingCapacity());
 
 		Gtk::Label *pFullCapacityLabel = 0;
 		refBuilder->get_widget("fullcapacity_label", pFullCapacityLabel);
-		pFullCapacityLabel->set_text(pBattery->GetFullCapacity());
+		pFullCapacityLabel->set_text(pBattery->getFullCapacity());
 	}
 
 	delete pBattery;

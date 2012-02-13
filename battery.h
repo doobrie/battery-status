@@ -28,21 +28,23 @@ public:
 	Battery();
 	~Battery();
 
-	bool ReadInfo();
-	std::string GetModelNumber();
-	std::string GetSerialNumber();
-	std::string GetState();
-	std::string GetChargingState();
-	std::string GetRemainingCapacity();
-	std::string GetFullCapacity();
+	bool readInfo();
+	std::string getBatteryType();
+	std::string getModelNumber();
+	std::string getSerialNumber();
+	std::string getState();
+	std::string getChargingState();
+	std::string getRemainingCapacity();
+	std::string getFullCapacity();
 
 private:
-	std::string SerialNumber;
-	std::string ModelNumber;
-	std::string State;
-	std::string ChargingState;
-	std::string RemainingCapacity;
-	std::string FullCapacity;
+	std::string batteryType;
+	std::string serialNumber;
+	std::string modelNumber;
+	std::string state;
+	std::string chargingState;
+	std::string remainingCapacity;
+	std::string fullCapacity;
 };
 
 #endif // BATTERY_H
