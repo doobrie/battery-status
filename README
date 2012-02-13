@@ -1,0 +1,17 @@
+battery-status is a simple Linux app to show Battery status.
+
+To build
+==========
+
+Pre-requisites:
+	gcc
+	gtkmm 3.0
+
+Build:
+	make
+
+Clean the Build:
+	make clean
+
+Execute the Application:
+	./battery-status
