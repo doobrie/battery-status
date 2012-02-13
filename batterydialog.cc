@@ -47,18 +47,24 @@ BatteryDialog::BatteryDialog(Gtk::Main kit)
 	//Get the GtkBuilder-instantiated Dialog:
 	refBuilder->get_widget("battery_dialog", pDialog);
 
-  
-	Gtk::Button *pRefreshButton = 0;
-	refBuilder->get_widget("refresh_button", pRefreshButton);
-	pRefreshButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::RefreshButton_clicked));
+	if (pDialog)
+	{  
+		Gtk::Button *pRefreshButton = 0;
+		refBuilder->get_widget("refresh_button", pRefreshButton);
+		pRefreshButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::RefreshButton_clicked));
 	
-	Gtk::Button *pQuitButton = 0;
-	refBuilder->get_widget("quit_button", pQuitButton);
-	pQuitButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::QuitButton_clicked));
+		Gtk::Button *pQuitButton = 0;
+		refBuilder->get_widget("quit_button", pQuitButton);
+		pQuitButton->signal_clicked().connect(sigc::mem_fun(this, &BatteryDialog::QuitButton_clicked));
 
-	UpdateBatteryInfo();
+		UpdateBatteryInfo();
 	
-	kit.run(*pDialog);
+		kit.run(*pDialog);
+	}
+	else
+	{
+		std::cout << "Unable to load main UI." << std::endl;
+	}
 
 }
 
