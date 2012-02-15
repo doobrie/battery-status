@@ -20,6 +20,7 @@
 #include "batterydialog.h"
 #include "battery.h"
 #include <iostream>
+#include <time.h>
 
 BatteryDialog::BatteryDialog(Gtk::Main kit)
 {
@@ -114,6 +115,13 @@ void BatteryDialog::updateBatteryInfo()
 		Gtk::Label *pRemainingTime = 0;
 		refBuilder->get_widget("remainingtime_label", pRemainingTime);
 		pRemainingTime->set_text(pBattery->getRemainingTime());
+
+		time_t currentTime;
+		time(&currentTime);
+		Gtk::Label *pCurrentTime = 0;
+		refBuilder->get_widget("refreshtime_label", pCurrentTime);
+		pCurrentTime->set_text(ctime(&currentTime));
+
 	}
 
 	delete pBattery;
