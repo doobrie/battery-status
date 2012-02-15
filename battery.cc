@@ -79,6 +79,10 @@ bool Battery::readInfo()
 	lineBuffer[0] = toupper(lineBuffer[0]);
 	chargingState = lineBuffer;
 
+	match = strstr(fileStateBuffer, "present rate");
+	sscanf(match, "present rate: %s", lineBuffer);
+	rate = lineBuffer;
+
 	match = strstr(fileInfoBuffer, "battery type");
 	sscanf(match, "battery type: %s", lineBuffer);
 	batteryType = lineBuffer;
@@ -121,5 +125,18 @@ std::string Battery::getRemainingCapacity()
 	int percent = 100.0 * remain / full;
 	char szBuffer[256];
 	sprintf(szBuffer, "%s mWh (%d %%)", remainingCapacity.c_str(), percent);
+	return szBuffer;
+}
+
+std::string Battery::getRemainingTime()
+{
+	float remain = atof(remainingCapacity.c_str());
+	float dischargeRate = atof(rate.c_str());
+
+	float remainingTime = remain/dischargeRate;
+	int hours = (int)remainingTime;
+	int minutes = (int)((remainingTime-hours)*60);
+	char szBuffer[256];
+	sprintf(szBuffer, "%d:%02d", hours, minutes);
 	return szBuffer;
 }

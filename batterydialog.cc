@@ -110,6 +110,10 @@ void BatteryDialog::updateBatteryInfo()
 		Gtk::Label *pFullCapacityLabel = 0;
 		refBuilder->get_widget("fullcapacity_label", pFullCapacityLabel);
 		pFullCapacityLabel->set_text(pBattery->getFullCapacity());
+
+		Gtk::Label *pRemainingTime = 0;
+		refBuilder->get_widget("remainingtime_label", pRemainingTime);
+		pRemainingTime->set_text(pBattery->getRemainingTime());
 	}
 
 	delete pBattery;

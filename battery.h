@@ -35,7 +35,9 @@ public:
 	std::string getState();
 	std::string getChargingState();
 	std::string getRemainingCapacity();
+	std::string getRemainingTime();
 	std::string getFullCapacity();
+	std::string getRate();
 
 private:
 	std::string batteryType;
@@ -45,6 +47,7 @@ private:
 	std::string chargingState;
 	std::string remainingCapacity;
 	std::string fullCapacity;
+	std::string rate;
 };
 
 #endif // BATTERY_H
