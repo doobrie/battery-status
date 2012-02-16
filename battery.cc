@@ -87,6 +87,10 @@ bool Battery::readInfo()
 	sscanf(match, "battery type: %s", lineBuffer);
 	batteryType = lineBuffer;
 
+	match = strstr(fileStateBuffer, "present rate");
+	sscanf(match, "present rate: %s", lineBuffer);
+	dischargeRate = lineBuffer;
+
 	return true;
 }
 
@@ -96,6 +100,11 @@ std::string Battery::getBatteryType()
 		return "Lithium Ion";
 	else
 		return batteryType;	
+}
+
+std::string Battery::getDischargeRate()
+{
+	return dischargeRate + " mW";
 }
 
 std::string Battery::getModelNumber()

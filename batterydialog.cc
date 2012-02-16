@@ -122,6 +122,10 @@ void BatteryDialog::updateBatteryInfo()
 		refBuilder->get_widget("refreshtime_label", pCurrentTime);
 		pCurrentTime->set_text(ctime(&currentTime));
 
+		Gtk::Label *pDischargeRate = 0;
+		refBuilder->get_widget("dischargerate_label", pDischargeRate);
+		pDischargeRate->set_text(pBattery->getDischargeRate());
+
 	}
 
 	delete pBattery;

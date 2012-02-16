@@ -30,6 +30,7 @@ public:
 
 	bool readInfo();
 	std::string getBatteryType();
+	std::string getDischargeRate();
 	std::string getModelNumber();
 	std::string getSerialNumber();
 	std::string getState();
@@ -41,6 +42,7 @@ public:
 
 private:
 	std::string batteryType;
+	std::string dischargeRate;
 	std::string serialNumber;
 	std::string modelNumber;
 	std::string state;
